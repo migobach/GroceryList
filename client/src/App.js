@@ -1,16 +1,31 @@
 import React, { Component } from 'react';
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
+// import Product from './components/Product'; 
 
 class App extends Component {
   state = { products: [] }
 
   componentDidMount() {
-    // fill in for when the database gets the information
+    fetch('/api/products')
+    .then( res => res.json() )
+    .then( products => this.setState({ products }) )  
   }
 
-  addProduct() {
-    //add product to list
+  addProduct = (name, quantity) => {
+    const product = { name, quantity }
+    fetch('/api/products', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(product)
+    }).then( res => res.json() )
+      .then( product => {
+        const { products } = this.state
+        this.setState({ products: [...products, product] })
+      })
   }
 
   updateProduct() {
@@ -22,9 +37,13 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.products)
     return (
       <div className="container">
         <ProductForm addProduct={this.addProduct}/>
+        <ProductList
+          products={this.state.products}
+        />
       </div>
       
     );

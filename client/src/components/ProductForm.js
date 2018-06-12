@@ -1,29 +1,36 @@
 import React from 'react';
 
 class ProductForm extends React.Component {
-  state = { productName: '', productQty: '' }
+  state = { name: '', quantity: '' }
 
   manageChange = (e) => {
     const { name, value } = e.target
     this.setState({ [name]: value })
   }
 
+  manageSubmit = (e) => {
+    e.preventDefault()
+    const { name, quantity } = this.state
+    this.props.addProduct(name, quantity )
+    this.setState({ name: '', quantity: '' })
+  }
+
   render() {
-    const { productName, productQty } = this.state
+    const { name, quantity } = this.state
     return (
-      <form>
+      <form onSubmit={this.manageSubmit}>
         <input
-          name="productName"
+          name="name"
           placeholder="Add a Product"
           required
-          value={productName}
+          value={name}
           onChange={this.manageChange}
         />
         <input 
-          name="productQty"
+          name="quantity"
           placeholder="How many?"
           required
-          value={productQty}
+          value={quantity}
           onChange={this.manageChange}
         />
         <button className="btn">Submit</button>
