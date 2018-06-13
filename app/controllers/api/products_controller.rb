@@ -16,7 +16,7 @@ class Api::ProductsController < ApplicationController
   end
 
   def update
-    @product.update(complete: !@product.complete)
+    @product.update(purchase: !@product.purchase)
     render json: @product
   end
 

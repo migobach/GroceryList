@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
-// import Product from './components/Product'; 
 
 class App extends Component {
   state = { products: [] }
@@ -28,12 +27,22 @@ class App extends Component {
       })
   }
 
-  updateProduct() {
-    //update the item, whether purchased or not
+  updateProduct = (id) => {
+    fetch(`/api/products/${id}`, { method: 'PUT' })
+    .then( res => res.json() )
+    .then( product => {
+      const products = this.state.products.map( t => {
+        if (t.id === id)
+          return {...t, purchase: !t.purchase}
+        return t 
+      })
+
+      this.setState({ products })
+    })
   }
 
   deleteProduct = (id) => {
-    fetch(`/api/items/${id}`, { method: 'DELETE' })
+    fetch(`/api/products/${id}`, { method: 'DELETE' })
     .then( () => {
       const { products } = this.state
       this.setState({ products: products.filter( t => t.id !== id ) })
@@ -48,6 +57,7 @@ class App extends Component {
         <ProductList
           products={this.state.products}
           deleteProduct={this.deleteProduct}
+          updateProduct={this.updateProduct}
         />
       </div>
       

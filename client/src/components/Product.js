@@ -28,12 +28,12 @@ const Product = ({
     </div>
       <div className="col s2">
         <input 
-          id={`product=${id}`}
+          id={`product-${id}`}
           type="checkbox"
           defaultChecked={purchase}
-          onClick={() => updateProduct(id)}
+          onClick={ () => updateProduct(id) }
         />
-        <label htmlFor={`item-${id}`}>Purchased?</label>
+        <label htmlFor={`product-${id}`}>Purchased?</label>
       </div>
       <div
         className="col s2"
