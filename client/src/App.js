@@ -32,8 +32,12 @@ class App extends Component {
     //update the item, whether purchased or not
   }
 
-  deleteItem() {
-    //delete the item from the list
+  deleteProduct = (id) => {
+    fetch(`/api/items/${id}`, { method: 'DELETE' })
+    .then( () => {
+      const { products } = this.state
+      this.setState({ products: products.filter( t => t.id !== id ) })
+    })
   }
 
   render() {
@@ -43,6 +47,7 @@ class App extends Component {
         <ProductForm addProduct={this.addProduct}/>
         <ProductList
           products={this.state.products}
+          deleteProduct={this.deleteProduct}
         />
       </div>
       

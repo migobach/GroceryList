@@ -1,13 +1,13 @@
 import React from 'react';
 import Product from './Product';
 
-const ProductList = ({ products }) => (
+const ProductList = ({ products, deleteProduct }) => (
   <div className="row">
     { products.map( product => {
       return <Product
         key={product.id}
         // updateProduct={updateProduct}
-        // deleteProduct={deleteProduct}
+        deleteProduct={ deleteProduct }
         {...product}
       />
     })

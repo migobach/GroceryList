@@ -1,7 +1,7 @@
 import React from 'react';
 
 const styles = {
-  complete: {
+  purchase: {
     textDecoration: 'line-through', 
     color: 'grey',
   },
@@ -10,7 +10,7 @@ const styles = {
 
 const Product = ({
   id, 
-  productName,
+  name,
   quantity,
   category,
   purchase,
@@ -20,15 +20,15 @@ const Product = ({
   <div className="col s12">
     <div className="col s8">
       <div 
-        style ={ purchase ? styles.complete : {} }
+        style ={ purchase ? styles.purchase : {} }
         className="center"
       >
-      {productName}
-    </div>
+      {name}
+      </div>
     </div>
       <div className="col s2">
         <input 
-          id={`item=${id}`}
+          id={`product=${id}`}
           type="checkbox"
           defaultChecked={purchase}
           onClick={() => updateProduct(id)}
@@ -38,7 +38,7 @@ const Product = ({
       <div
         className="col s2"
         style={styles.pointer}
-        onClick={() => deleteProduct(id)}
+        onClick={ () => deleteProduct(id) }
       >
       X
       </div>
